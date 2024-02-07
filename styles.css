@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+* {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 36px;
+  background-color: #e7dccc;
+}
+
+.calculator {
+  width: max-content;
+  height: 520px;
+  width: 300px;
+  background-color: #011627;
+  border-radius: 16px;
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.7);
+}
+
+.screen-container {
+  height: 170px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 4px;
+  background-color: #22313d;
+}
+
+.keyboard-container {
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.operators {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+button {
+  height: 56px;
+  width: 56px;
+  margin: 4px;
+  border-radius: 100%;
+  cursor: pointer;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  background-color: #22313d;
+  color: white;
+}
+
+button:hover {
+  color: #011627;
+  background-color: #ddcec2;
+}
+
+.operator {
+  color: #f3445c;
+  font-weight: 600;
+}
+
+.operator:hover {
+  color: #0b9986;
+}
+
+.control-buttons button {
+  color: #41ead4;
+}
+
+.control-buttons button:hover {
+  color: #be152b;
+}

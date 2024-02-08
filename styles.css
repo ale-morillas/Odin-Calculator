@@ -77,3 +77,26 @@ button:hover {
 .control-buttons button:hover {
   color: #be152b;
 }
+
+.operation-panel {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 85px;
+  padding: 12px;
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: white;
+}
+
+.result-panel {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 12px;
+  font-family: "Roboto", sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: white;
+}

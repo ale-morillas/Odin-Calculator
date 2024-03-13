@@ -115,7 +115,7 @@ equalBtn.addEventListener("click", () => {
   operationPanel.textContent = "";
 
   if (result.toString().length > 16) {
-    result = result.toString().slice(0, 17);
+    result = result.toString().slice(0, 16);
   }
 
   if (result.toString().length > 12) {

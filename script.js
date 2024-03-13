@@ -1,5 +1,4 @@
 // Basic Math Operation Functions
-
 function addFunction(a, b) {
   return a + b;
 }
@@ -16,11 +15,6 @@ function divideFunction(a, b) {
   return a / b;
 }
 
-// Variables
-let num1;
-let operator;
-let num2;
-
 // Function Operate
 function operate(num1, operator, num2) {
   if (operator === "+") {
@@ -33,3 +27,30 @@ function operate(num1, operator, num2) {
     return divideFunction(num1, num2);
   }
 }
+
+// Keyboard variables
+const numberBtn = document.querySelectorAll(".number");
+const operatorBtn = document.querySelectorAll(".operator");
+const equalBtn = document.querySelector(".equal");
+const eraseBtn = document.querySelector(".erase");
+const clearBtn = document.querySelector(".clear");
+const operationPanel = document.querySelector(".operation-panel");
+const resultPanel = document.querySelector(".result-panel");
+let currentOp = "";
+
+// Write numbers
+numberBtn.forEach((number) => {
+  number.addEventListener("click", function () {
+    if (currentOp.toString().length < 16) {
+      let value = this.dataset.value;
+      if (value === "." && currentOp.includes(".")) {
+        return;
+      }
+      currentOp += value;
+      resultPanel.textContent = currentOp;
+      if (currentOp.toString().length > 12) {
+        resultPanel.style.fontSize = "30px";
+      }
+    }
+  });
+});

@@ -82,7 +82,7 @@ button:hover {
   display: flex;
   justify-content: end;
   align-items: center;
-  height: 85px;
+  height: 61px;
   padding: 12px;
   font-family: "Roboto", sans-serif;
   font-size: 32px;
@@ -94,6 +94,7 @@ button:hover {
   display: flex;
   justify-content: end;
   align-items: center;
+  height: 61px;
   padding: 12px;
   font-family: "Roboto", sans-serif;
   font-size: 40px;

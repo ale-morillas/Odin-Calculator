@@ -108,6 +108,10 @@ function keyNumbers(value) {
 }
 
 function keyOperation(keyOp) {
+  if (operation || !currentOp1) {
+    return;
+  }
+
   if (operation && currentOp1 && currentOp2) {
     handleEqualBtnClick();
     currentOp2 = currentOp1;
@@ -115,9 +119,6 @@ function keyOperation(keyOp) {
     currentOp2 = resultPanel.textContent || currentOp1;
   }
 
-  if (operation || !currentOp1) {
-    return;
-  }
   operation = keyOp;
   operationPanel.textContent = currentOp2 + " " + operation;
   currentOp1 = "";

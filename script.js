@@ -62,65 +62,7 @@ let operation = "";
 let currentOp2 = "";
 let counter = 0;
 
-// Write numbers
-numberBtn.forEach((number) => {
-  number.addEventListener("click", function () {
-    if (counter > 0 && resultPanel.textContent.length > 0) {
-      return;
-    }
-
-    if (currentOp1.toString().length < 16) {
-      value = this.dataset.value;
-      resultPanel.style.fontSize = "40px";
-      if (value === "." && currentOp1.includes(".")) {
-        return;
-      }
-      currentOp1 += value;
-      resultPanel.textContent = currentOp1;
-      if (currentOp1.toString().length > 12) {
-        resultPanel.style.fontSize = "30px";
-      }
-    }
-  });
-});
-
-// Clear Button
-clearBtn.addEventListener("click", function () {
-  currentOp1 = "";
-  operationPanel.textContent = "";
-  resultPanel.textContent = "";
-  counter = 0;
-});
-
-// Erase Button
-eraseBtn.addEventListener("click", function () {
-  currentOp1 = currentOp1.slice(0, -1);
-  if (currentOp1.toString().length > 12) {
-    resultPanel.style.fontSize = "30px";
-  } else {
-    resultPanel.style.fontSize = "40px";
-  }
-  resultPanel.textContent = currentOp1;
-});
-
-// Operators
-operatorBtn.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    if (operation && currentOp1 && currentOp2) {
-      handleEqualBtnClick();
-      currentOp2 = currentOp1;
-    } else {
-      currentOp2 = resultPanel.textContent || currentOp1;
-    }
-
-    operation = this.dataset.value;
-    operationPanel.textContent = currentOp2 + " " + operation;
-    currentOp1 = "";
-    resultPanel.textContent = "";
-  });
-});
-
-// Result
+// Functions
 function handleEqualBtnClick() {
   if (!currentOp2 || !currentOp1) {
     return;
@@ -147,4 +89,91 @@ function handleEqualBtnClick() {
   counter++;
 }
 
+function keyNumbers(value) {
+  if (counter > 0 && resultPanel.textContent.length > 0) {
+    return;
+  }
+
+  if (currentOp1.toString().length < 16) {
+    resultPanel.style.fontSize = "40px";
+    if (value === "." && currentOp1.includes(".")) {
+      return;
+    }
+    currentOp1 += value;
+    resultPanel.textContent = currentOp1;
+    if (currentOp1.toString().length > 12) {
+      resultPanel.style.fontSize = "30px";
+    }
+  }
+}
+
+function keyOperation(keyOp) {
+  if (operation && currentOp1 && currentOp2) {
+    handleEqualBtnClick();
+    currentOp2 = currentOp1;
+  } else {
+    currentOp2 = resultPanel.textContent || currentOp1;
+  }
+
+  if (operation || !currentOp1) {
+    return;
+  }
+  operation = keyOp;
+  operationPanel.textContent = currentOp2 + " " + operation;
+  currentOp1 = "";
+  resultPanel.textContent = "";
+}
+
+// Write numbers
+numberBtn.forEach((number) => {
+  number.addEventListener("click", function () {
+    keyNumbers(this.dataset.value);
+  });
+});
+
+document.addEventListener("keydown", function (event) {
+  const keyNum = event.key;
+  if (!isNaN(keyNum) && keyNum !== " ") {
+    keyNumbers(keyNum);
+  }
+});
+
+// Clear Button
+clearBtn.addEventListener("click", function () {
+  currentOp1 = "";
+  operationPanel.textContent = "";
+  resultPanel.textContent = "";
+  counter = 0;
+});
+
+// Erase Button
+eraseBtn.addEventListener("click", function () {
+  currentOp1 = currentOp1.slice(0, -1);
+  if (currentOp1.toString().length > 12) {
+    resultPanel.style.fontSize = "30px";
+  } else {
+    resultPanel.style.fontSize = "40px";
+  }
+  resultPanel.textContent = currentOp1;
+});
+
+// Operators
+operatorBtn.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    keyOperation(this.dataset.value);
+  });
+});
+
+document.addEventListener("keydown", function (event) {
+  const key = event.key;
+  if (["+", "-", "*", "/"].includes(key)) {
+    keyOperation(key);
+  }
+});
+
 equalBtn.addEventListener("click", handleEqualBtnClick);
+document.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    handleEqualBtnClick();
+  }
+});

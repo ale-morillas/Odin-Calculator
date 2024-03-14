@@ -78,6 +78,14 @@ button:hover {
   color: #be152b;
 }
 
+.erase {
+  color: #41ead4;
+}
+
+.erase:hover {
+  color: #be152b;
+}
+
 .operation-panel {
   display: flex;
   justify-content: end;

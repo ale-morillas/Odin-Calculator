@@ -12,7 +12,11 @@ function multiplyFunction(a, b) {
 }
 
 function divideFunction(a, b) {
-  return a / b;
+  if (b === 0) {
+    return "Error";
+  } else {
+    return a / b;
+  }
 }
 
 function exponentiationFunction(a, b) {
@@ -56,10 +60,15 @@ let value;
 let currentOp1 = "";
 let operation = "";
 let currentOp2 = "";
+let counter = 0;
 
 // Write numbers
 numberBtn.forEach((number) => {
   number.addEventListener("click", function () {
+    if (counter > 0 && resultPanel.textContent.length > 0) {
+      return;
+    }
+
     if (currentOp1.toString().length < 16) {
       value = this.dataset.value;
       resultPanel.style.fontSize = "40px";
@@ -80,6 +89,7 @@ clearBtn.addEventListener("click", function () {
   currentOp1 = "";
   operationPanel.textContent = "";
   resultPanel.textContent = "";
+  counter = 0;
 });
 
 // Erase Button
@@ -96,22 +106,33 @@ eraseBtn.addEventListener("click", function () {
 // Operators
 operatorBtn.forEach((btn) => {
   btn.addEventListener("click", function () {
-    let operator = this.dataset.value;
-    currentOp2 = currentOp1;
-    operationPanel.textContent = resultPanel.textContent + " " + operator;
-    operation = operator;
+    if (operation && currentOp1 && currentOp2) {
+      handleEqualBtnClick();
+      currentOp2 = currentOp1;
+    } else {
+      currentOp2 = resultPanel.textContent || currentOp1;
+    }
+
+    operation = this.dataset.value;
+    operationPanel.textContent = currentOp2 + " " + operation;
     currentOp1 = "";
     resultPanel.textContent = "";
   });
 });
 
 // Result
-equalBtn.addEventListener("click", () => {
-  num1 = parseFloat(currentOp2);
-  num2 = parseFloat(currentOp1);
+function handleEqualBtnClick() {
+  if (!currentOp2 || !currentOp1) {
+    return;
+  }
+
+  let num1 = parseFloat(currentOp2);
+  let num2 = parseFloat(currentOp1);
   let result = operate(num1, operation, num2);
-  currentOp1 = "";
+
+  currentOp1 = result;
   currentOp2 = "";
+  operation = "";
   operationPanel.textContent = "";
 
   if (result.toString().length > 16) {
@@ -123,4 +144,7 @@ equalBtn.addEventListener("click", () => {
   }
 
   resultPanel.textContent = result;
-});
+  counter++;
+}
+
+equalBtn.addEventListener("click", handleEqualBtnClick);

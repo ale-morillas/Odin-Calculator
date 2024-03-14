@@ -125,20 +125,6 @@ function keyOperation(keyOp) {
   resultPanel.textContent = "";
 }
 
-// Write numbers
-numberBtn.forEach((number) => {
-  number.addEventListener("click", function () {
-    keyNumbers(this.dataset.value);
-  });
-});
-
-document.addEventListener("keydown", function (event) {
-  const keyNum = event.key;
-  if (!isNaN(keyNum) && keyNum !== " ") {
-    keyNumbers(keyNum);
-  }
-});
-
 // Clear Button
 clearBtn.addEventListener("click", function () {
   currentOp1 = "";
@@ -156,6 +142,22 @@ eraseBtn.addEventListener("click", function () {
     resultPanel.style.fontSize = "40px";
   }
   resultPanel.textContent = currentOp1;
+});
+
+// Write numbers
+numberBtn.forEach((number) => {
+  number.addEventListener("click", function () {
+    keyNumbers(this.dataset.value);
+  });
+});
+
+document.addEventListener("keydown", function (event) {
+  const keyNum = event.key;
+  if (!isNaN(keyNum) && keyNum !== " ") {
+    keyNumbers(keyNum);
+  } else if (keyNum === ".") {
+    keyNumbers(keyNum);
+  }
 });
 
 // Operators
